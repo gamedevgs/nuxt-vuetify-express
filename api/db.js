@@ -14,9 +14,7 @@ mongoose.connect(stringconnect, {
         useUnifiedTopology: true
     })
     .then(() => console.log('✅ Connected database from mongodb.'))
-    .catch((error) => console.error(`❌
-        Connect database is failed with error which is $ { error }
-        `))
+    .catch((error) => console.error(`❌ Connect database is failed with error which is ${error}`))
 
 const cron = require('node-cron');
 let dbBackupTask = ''
