@@ -7,26 +7,37 @@ const config = {
     pass: 'example'
 };
 // setup connect mongodb by mongoose
-mongoose.connect(`mongodb://${config.user}:${config.pass}@${config.host}/${config.db}`, {
+// const urli = `mongodb://${config.user}:${config.pass}@${config.host}/${config.db}`
+mongoose.connect(`mongodb+srv://25251325:2525132579@cluster0.puuua.mongodb.net/test`, {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
     .then(() => console.log('✅ Connected database from mongodb.'))
-    .catch((error) => console.error(`❌ Connect database is failed with error which is ${error}`))
+    .catch((error) => console.error(`❌
+        Connect database is failed with error which is $ { error }
+        `))
 
 const cron = require('node-cron');
 
 let dbBackupTask = cron.schedule('59 23 * * *', () => {
-    exec(`docker exec -i mongo mongodump -u ${config.user} -p ${config.pass}`, (error, stdout, stderr) => {
+    exec(`
+        docker exec - i mongo mongodump - u $ { config.user } - p $ { config.pass }
+        `, (error, stdout, stderr) => {
         if (error) {
-            console.log(`error: ${error.message}`);
+            console.log(`
+        error: $ { error.message }
+        `);
             return;
         }
         if (stderr) {
-            console.log(`Backup db mongo: ${stderr}`);
+            console.log(`
+        Backup db mongo: $ { stderr }
+        `);
             return;
         }
-        console.log(`Backup db mongo: ${stdout}`);
+        console.log(`
+        Backup db mongo: $ { stdout }
+        `);
     });
 });
 
