@@ -6,9 +6,10 @@ const config = {
     user: 'root',
     pass: 'example'
 };
-// setup connect mongodb by mongoose
-// const urli = `mongodb://${config.user}:${config.pass}@${config.host}/${config.db}`
-mongoose.connect(`mongodb+srv://25251325:2525132579@cluster0.puuua.mongodb.net/test`, {
+const stringconnect = process.env.MONGODB_URI || 'mongodb+srv://25251325:2525132579@cluster0.puuua.mongodb.net/test'
+    // setup connect mongodb by mongoose
+    // const urli = `mongodb://${config.user}:${config.pass}@${config.host}/${config.db}`
+mongoose.connect(stringconnect, {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
