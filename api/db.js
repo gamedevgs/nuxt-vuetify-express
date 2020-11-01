@@ -19,27 +19,28 @@ mongoose.connect(stringconnect, {
         `))
 
 const cron = require('node-cron');
+let dbBackupTask = ''
 
-let dbBackupTask = cron.schedule('59 23 * * *', () => {
-    exec(`
-        docker exec - i mongo mongodump - u $ { config.user } - p $ { config.pass }
-        `, (error, stdout, stderr) => {
-        if (error) {
-            console.log(`
-        error: $ { error.message }
-        `);
-            return;
-        }
-        if (stderr) {
-            console.log(`
-        Backup db mongo: $ { stderr }
-        `);
-            return;
-        }
-        console.log(`
-        Backup db mongo: $ { stdout }
-        `);
-    });
-});
+// let dbBackupTask = cron.schedule('59 23 * * *', () => {
+//     exec(`
+//         docker exec - i mongo mongodump - u $ { config.user } - p $ { config.pass }
+//         `, (error, stdout, stderr) => {
+//         if (error) {
+//             console.log(`
+//         error: $ { error.message }
+//         `);
+//             return;
+//         }
+//         if (stderr) {
+//             console.log(`
+//         Backup db mongo: $ { stderr }
+//         `);
+//             return;
+//         }
+//         console.log(`
+//         Backup db mongo: $ { stdout }
+//         `);
+//     });
+// });
 
 module.exports = { dbBackupTask }
