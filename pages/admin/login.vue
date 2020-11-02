@@ -52,6 +52,7 @@ export default {
   layout: "default",
   data: () => ({
     show3: false,
+    loading:false,
     model: {
       email: "",
       password: "",
