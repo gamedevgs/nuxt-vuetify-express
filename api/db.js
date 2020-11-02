@@ -1,17 +1,13 @@
 const { exec } = require("child_process");
 const mongoose = require('mongoose');
-var stringconnect;
+
 const config = {
     host: 'localhost',
     db: 'admin',
     user: 'root',
     pass: 'example'
 };
-if (process.env.NODE_ENV === 'production') {
-    stringconnect = process.env.MONGODB_URI
-} else {
-    stringconnect = `mongodb://${config.user}:${config.pass}@${config.host}/${config.db}`
-}
+const stringconnect = process.env.MONGODB_URI || `mongodb://${config.user}:${config.pass}@${config.host}/${config.db}`
 console.log(stringconnect)
 mongoose.connect(stringconnect, {
         useNewUrlParser: true,
