@@ -1,5 +1,5 @@
 const pkg = require('./package')
-
+require('dotenv').config()
 
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 
@@ -98,7 +98,7 @@ module.exports = {
      ** Build configuration
      */
     axios: {
-        baseURL: 'http://localhost:9000'
+        baseURL: 'http://localhost:3000'
     },
     build: {
         transpile: ['vuetify/lib'],
@@ -117,6 +117,6 @@ module.exports = {
         }
     },
     serverMiddleware: [
-        '~/api/main.js'
+        '~/api/index.js'
     ]
 }

@@ -1,31 +1,34 @@
-import * as User from './user';
-import * as Activity from './activity';
-import * as Chat from './chat';
-import * as Files from './file';
-import * as Post from './post';
-import * as Chart from './chart';
-import * as Project from './project';
-export default {
-    // user
-    getUser: User.getUser,
-    getUserById: User.getUserById,
-    // project
-    getProject: Project.getProject,
-    // activity
-    getActivity: Activity.default.getActivity,
-    // post
-    getPost: Post.getPost,
-    // chat
-    getChatMenu: Chat.Menu,
-    getChatGroup: Chat.Groups,
-    getChatGroupById: Chat.getChatById,
-    // FIle 
-    getFile: Files.getFile,
-    getFileMenu: Files.getFileMenu,
-    // mail
-    // chart data
-    getMonthVisit: Chart.monthVisitData,
-    getCampaign: Chart.campaignData,
-    getLocation: Chart.locationData,
+const express = require('express')
+const { dbBackupTask } = require('./db')
+const logger = require('morgan')
+    // Create express instnace
+const app = express()
 
-};
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
+// Init body-parser options (inbuilt with express)
+app.use(logger('dev'))
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
+// Require & Import API routes
+const users = require('./routes/users')
+const articles = require('./routes/articles')
+const products = require('./routes/products')
+const cates = require('./routes/cates')
+const files = require('./routes/files')
+
+app.use(users)
+app.use(articles)
+app.use(products)
+app.use(cates)
+app.use(files)
+
+// Export the server middleware
+module.exports = {
+    path: '/api',
+    handler: app
+}
