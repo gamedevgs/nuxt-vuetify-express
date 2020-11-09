@@ -98,7 +98,7 @@ module.exports = {
      ** Build configuration
      */
     axios: {
-        baseUrl: process.env.BASE_URL
+        baseUrl: process.env.BASE_URL || 'http://localhost:3000'
     },
     build: {
         transpile: ['vuetify/lib'],
