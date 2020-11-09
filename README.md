@@ -1,11 +1,6 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/6d248400-2f19-4f30-aa78-6c77b6aa65c9/deploy-status)](https://app.netlify.com/sites/nuxt-material-admin/deploys)
 
 # Nuxt Material + Express full Backend ,Frontend
-
-Nuxt.js + [vue-material-admin](https://github.com/tookit/vue-material-admin) boilerplate.
-
-This template is based on Vuetify.
-
 ### Demo
 
 https://vuetifyshop.herokuapp.com
