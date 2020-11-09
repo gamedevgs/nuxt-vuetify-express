@@ -101,37 +101,28 @@ module.exports = {
         baseUrl: process.env.BASE_URL || 'http://localhost:3000'
     },
     build: {
-        transpile: ['vuetify/lib', 'tiptap-vuetify'],
-        /* Extend webpack config here */
-        extend(config, ctx) {
-            config.module.rules.push({
-                test: /\.js$/,
-                loader: 'babel-loader',
-                exclude: /(node_modules)/
-            })
-        }
-        // transpile: ['vuetify/lib'],
-        // plugins: [new VuetifyLoaderPlugin()],
-        // loaders: {
-        //     stylus: {
-        //         import: ["~assets/style/variables.styl"]
-        //     }
-        // },
+        transpile: ['vuetify/lib'],
+        plugins: [new VuetifyLoaderPlugin()],
+        loaders: {
+            stylus: {
+                import: ["~assets/style/variables.styl"]
+            }
+        },
 
-        // /*
-        //  ** You can extend webpack config here
-        //  */
-        // extend(config, { isDev, isClient }) {
-        //     // ..
-        //     config.module.rules.push({
-        //             test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
-        //             loader: 'file-loader'
-        //         })
-        //         // Sets webpack's mode to development if `isDev` is true.
-        //     if (isDev) {
-        //         config.mode = 'development'
-        //     }
-        // }
+        /*
+         ** You can extend webpack config here
+         */
+        extend(config, { isDev, isClient }) {
+            // ..
+            config.module.rules.push({
+                    test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
+                    loader: 'file-loader'
+                })
+                // Sets webpack's mode to development if `isDev` is true.
+            if (isDev) {
+                config.mode = 'development'
+            }
+        }
     },
     serverMiddleware: [
         '~/api/index.js'
