@@ -4,7 +4,7 @@ require('dotenv').config()
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 
 module.exports = {
-
+    target: 'static',
     /*
      ** Headers of the page
      */
