@@ -20,14 +20,15 @@ const articles = require('./routes/articles')
 const products = require('./routes/products')
 const cates = require('./routes/cates')
 const files = require('./routes/files')
+const layouts = require('./routes/layouts')
 
 app.use(users)
 app.use(articles)
 app.use(products)
 app.use(cates)
 app.use(files)
-
-// Export the server middleware
+app.use(layouts)
+    // Export the server middleware
 module.exports = {
     path: '/api',
     handler: app

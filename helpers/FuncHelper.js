@@ -1,6 +1,6 @@
 export function timeAgo(time) {
     const now = getTimestamp()
-    // get timestamp millisecond
+        // get timestamp millisecond
     const between = (now - Number(time)) / 1000 // second
     if (between < 60) {
         return pluralize(0, 'vừa xong')

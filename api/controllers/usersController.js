@@ -120,3 +120,24 @@ module.exports.user = function(req, res) {
         return res.status(401).json({ message: 'unauthorized' })
     }
 }
+
+module.exports.SeedAdmin = (name, email, pass) => {
+    var user = new User({
+            full_name: name,
+            email: email,
+            password: pass,
+        })
+        // encrypt password
+    var salt = bcrypt.genSaltSync(10);
+    var hash = bcrypt.hashSync(user.password, salt);
+    user.password = hash
+
+
+    // save record
+    user.save(function(err, user) {
+        if (err) {
+            console.info('Error when seed Admin:' + err)
+        }
+        console.info('Create account Admin success!')
+    })
+}

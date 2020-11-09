@@ -9,7 +9,7 @@ module.exports = {
      ** Headers of the page
      */
     head: {
-        title: 'Vue Material Admin Template',
+        title: 'Nuxt Material Express',
         meta: [
             { charset: 'utf-8' },
             { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -53,7 +53,7 @@ module.exports = {
     plugins: [
         '@/plugins/vuetify',
         '@/plugins/vee-validate',
-        { src: '~/plugins/ckeditor.js', mode: 'client' }
+        { src: '~/plugins/ckeditor.js', mode: 'client' },
     ],
     telemetry: false,
     auth: {

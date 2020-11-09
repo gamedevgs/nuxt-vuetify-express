@@ -7,20 +7,21 @@ var a = new Date(Date.now());
 var year = a.getFullYear();
 var month = a.getMonth();
 var date = a.getDate();
-var setRefix  = date.toString() + parseInt(month + 1).toString() + year.toString();
+var setRefix = date.toString() + parseInt(month + 1).toString() + year.toString();
 
-var dir = path.dirname(new URL(import.meta.url).pathname);
+var dir = path.dirname(new URL(
+    import.meta.url).pathname);
 var dirUpload = dir.replace(/(\/api\/controllers)/gm, `/static`);
-var full_dir = dirUpload + '/uploads/' + setRefix
+var full_dir = dirUpload + process.env.FOLDER_UPLOAD + '/' + setRefix
 var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
+    destination: function(req, file, cb) {
         console.log(req.files)
         console.log(file)
-        // check if directory exists
+            // check if directory exists
         fs.mkdir(full_dir, { recursive: true }, (err) => { if (err) throw err; })
         cb(null, full_dir)
     },
-    filename: function (req, file, cb) {
+    filename: function(req, file, cb) {
         var hashname = Date.now() + '_image' + path.extname(file.originalname);
         cb(null, hashname);
         fileName = setRefix + '/' + hashname;
@@ -28,11 +29,11 @@ var storage = multer.diskStorage({
 })
 
 var upload = multer({ storage: storage }).any();
-module.exports.fileManager = function (req, res) {
+module.exports.fileManager = function(req, res) {
     const tree = dirTree(dirUpload);
     return res.json(tree)
 }
-module.exports.enterFolder = function (req, res) {
+module.exports.enterFolder = function(req, res) {
     console.log(req.body.path)
     if (req.body.path) {
         const tree = dirTree(req.body.path);
@@ -46,11 +47,11 @@ module.exports.enterFolder = function (req, res) {
         })
     }
 }
-module.exports.delete = function (req, res) {
+module.exports.delete = function(req, res) {
     let file = req.body.file
     console.log(file)
     if (fs.existsSync(file)) {
-        fs.unlink(file, function (err) {
+        fs.unlink(file, function(err) {
             if (err) {
                 return res.status(404).json({
                     message: err
@@ -69,8 +70,8 @@ module.exports.delete = function (req, res) {
 }
 
 // Upload 
-module.exports.uploadfile = function (req, res) {
-    upload(req, res, function (err) {
+module.exports.uploadfile = function(req, res) {
+    upload(req, res, function(err) {
         if (err) {
             return res.status(404).json({
                 message: 'Error file upload'
@@ -78,10 +79,7 @@ module.exports.uploadfile = function (req, res) {
         }
         return res.status(200).json({
             message: 'success',
-            link: fileName
+            link: process.env.BASE_URL + process.env.FOLDER_UPLOAD + '/' + fileName
         });
     })
 }
-
-
-

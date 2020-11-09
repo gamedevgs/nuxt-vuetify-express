@@ -34,9 +34,14 @@
                 <template slot="items" slot-scope="props">
                   <td>{{ props.index }}</td>
                   <td>
-                    <v-img
+                    <!-- <v-img
                       ref="avartar"
                       :src="`/uploads/${props.item.thumb}`"
+                      max-height="50"
+                    ></v-img> -->
+                    <v-img
+                      ref="avartar"
+                      :src="`${props.item.thumb}`"
                       max-height="50"
                     ></v-img>
                   </td>
@@ -135,7 +140,7 @@
                   :counter="170"
                 ></v-text-field>
                 <v-flex class="pb-5">
-                <ckeditor value="Hello, World!"></ckeditor>
+                  <ckeditor v-model="popup.content"></ckeditor>
                 </v-flex>
               </v-flex>
               <v-flex lg3 class="pa-2">
@@ -395,7 +400,7 @@ export default {
     async updateAllCat() {
       const { data } = await this.$axios.get("/api/cates");
       if (data.length != 0) {
-        data.map((v, k) => {
+        data.reverse().map((v, k) => {
           if (v.trang_thai) {
             this.listCat.push(v);
           }
@@ -422,7 +427,8 @@ export default {
 
       this.popup.title = data.title;
       this.popup.excerpt = data.excerpt;
-      this.defaulThumb = "/uploads/" + encodeURI(data.thumb);
+      // this.defaulThumb = "/uploads/" + encodeURI(data.thumb);
+      this.defaulThumb = encodeURI(data.thumb);
       this.popup.thumb = data.thumb;
       this.popup.content = data.content;
       this.popup.cate = data.cate;
@@ -515,8 +521,7 @@ export default {
       }
     },
   },
-  components: {
-  },
+  components: {},
   head() {
     return {
       title: "sssssssssss",

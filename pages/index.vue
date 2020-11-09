@@ -1,94 +1,97 @@
 <template>
-  <v-container>
-    <div class="jumbotron text-center" style="margin-bottom: 0">
-      <h1>My First Bootstrap 4 Page</h1>
-      <p>Resize this responsive page to see the effect!</p>
-    </div>
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-      <a class="navbar-brand" href="#">Navbar</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#collapsibleNavbar"
+  <v-content>
+    <v-layout row pt-5>
+      <v-flex lg8 xs12>
+        <v-carousel :show-arrows="false">
+          <v-carousel-item
+            v-for="(item, i) in layouts.feature"
+            :key="i"
+            :src="item.thumb"
+          ></v-carousel-item>
+        </v-carousel>
+      </v-flex>
+
+      <v-flex
+        lg4
+        xs12
+        id="scroll-target"
+        style="max-height: 500px"
+        class="scroll-y"
+        v-scroll:#scroll-target="onScroll"
       >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="collapsibleNavbar">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-
-    <div class="container" style="margin-top: 30px">
-      <div class="row">
-        <div class="col-sm-4">
-          <h2>About Me</h2>
-          <h5>Photo of me:</h5>
-          <div class="fakeimg">Fake Image</div>
-          <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
-          <h3>Some Links</h3>
-          <p>Lorem ipsum dolor sit ame.</p>
-          <ul class="nav nav-pills flex-column">
-            <li class="nav-item">
-              <a class="nav-link active" href="#">Active</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#">Disabled</a>
-            </li>
-          </ul>
-          <hr class="d-sm-none" />
-        </div>
-        <div class="col-sm-8">
-          <h2>TITLE HEADING</h2>
-          <h5>Title description, Dec 7, 2017</h5>
-          <div class="fakeimg">Fake Image</div>
-          <p>Some text..</p>
-          <p>
-            Sunt in culpa qui officia deserunt mollit anim id est laborum
-            consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-            exercitation ullamco.
-          </p>
-          <br />
-          <h2>TITLE HEADING</h2>
-          <h5>Title description, Sep 2, 2017</h5>
-          <div class="fakeimg">Fake Image</div>
-          <p>Some text..</p>
-          <p>
-            Sunt in culpa qui officia deserunt mollit anim id est laborum
-            consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-            exercitation ullamco.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <div class="jumbotron text-center" style="margin-bottom: 0">
-      <p>Footer</p>
-    </div>
-  </v-container>
+        <v-list
+          two-line
+          v-for="element in layouts.feature"
+          :key="element.title"
+        >
+          <v-list-tile avatar>
+            <v-list-tile-avatar>
+              <img :src="element.thumb" />
+            </v-list-tile-avatar>
+            <v-list-tile-content>
+              <v-list-tile-title>{{ element.title }}</v-list-tile-title>
+              <v-list-tile-sub-title>{{
+                element.excerpt
+              }}</v-list-tile-sub-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
+      </v-flex>
+      <v-flex lg12 pt-2 pb-2 xs12>
+        <v-card>
+          <v-img
+            src="https://znews-photo.zadn.vn/Uploaded/abhuax4/2020_11_05/3300x315_2__1.jpg"
+            aspect-ratio="2.75"
+            height="100"
+          ></v-img>
+        </v-card>
+      </v-flex>
+      <v-toolbar dense dark color="warning">
+        <v-btn
+          flat
+          v-for="element in layouts.menu"
+          :key="element.id_x"
+          :to="element.link"
+          >{{ element.name }}</v-btn
+        >
+      </v-toolbar>
+      <v-flex
+        v-for="(element, index) in layouts.feature"
+        :key="element.title"
+        v-show="index < 7"
+        :class="index == 0 ? 'lg6' : 'lg3'"
+      >
+        <v-card>
+          <v-card-media contain height="auto" :src="element.thumb">
+          </v-card-media>
+          <v-card-title primary-title>
+            <div>
+              <h4>{{ element.title }}</h4>
+            </div>
+          </v-card-title>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-content>
 </template>
 <script>
+import draggable from "vuedraggable";
+import { mapState } from "vuex";
 export default {
   data: () => ({
-    gradient: "to top, #7B1FA2, #E1BEE7",
+    show: true,
+    offsetTop: 0,
   }),
+  components: {
+    draggable,
+  },
+  methods: {
+    onScroll(e) {
+      this.offsetTop = e.target.scrollTop;
+    },
+  },
+  computed: {
+    ...mapState(["layouts"]),
+  },
 };
 </script>

@@ -34,9 +34,14 @@
                 <template slot="items" slot-scope="props">
                   <td>{{ props.index }}</td>
                   <td>
-                    <v-img
+                    <!-- <v-img
                       ref="avartar"
                       :src="`/uploads/${props.item.thumb}`"
+                      max-height="50"
+                    ></v-img> -->
+                    <v-img
+                      ref="avartar"
+                      :src="`${props.item.thumb}`"
                       max-height="50"
                     ></v-img>
                   </td>
@@ -440,7 +445,8 @@ export default {
 
       this.popup.title = data.title;
       this.popup.excerpt = data.excerpt;
-      this.defaulThumb = "/uploads/" + encodeURI(data.thumb);
+      // this.defaulThumb = "/uploads/" + encodeURI(data.thumb);
+      this.defaulThumb = encodeURI(data.thumb);
       this.popup.thumb = data.thumb;
       this.popup.content = data.content;
       this.popup.cate = data.cate;

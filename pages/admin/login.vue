@@ -1,10 +1,10 @@
 <template>
   <v-app id="login">
-    <v-content >
-      <v-container fill-height >
+    <v-content>
+      <v-container fill-height>
         <v-layout align-center justify-center>
           <v-flex xs12 sm8 md4 lg4>
-            <v-card class="elevation-5 " height="500">
+            <v-card class="elevation-5" height="500">
               <v-card-text>
                 <div class="layout column align-center">
                   <h1 class="flex my-4 primary--text">Admin Login</h1>
@@ -38,7 +38,6 @@
                   >Login</v-btn
                 >
               </v-card-actions>
-              
             </v-card>
           </v-flex>
         </v-layout>
@@ -49,10 +48,10 @@
 
 <script>
 export default {
-  layout: "default",
+  layout: "empty",
   data: () => ({
     show3: false,
-    loading:false,
+    loading: false,
     model: {
       email: "",
       password: "",
@@ -77,6 +76,9 @@ export default {
           },
         })
         .catch((error) => {
+          if (error.response.data.message) {
+            this.makeToast("warning", error.response.data.message);
+          }
           if (error.response.data.errors[0].msg) {
             this.makeToast("warning", error.response.data.errors[0].msg);
           }
@@ -93,6 +95,6 @@ export default {
   left: 0;
   content: "";
   z-index: 0;
-    background-image: url(https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg);
+  background-image: url(https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg);
 }
 </style>
