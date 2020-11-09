@@ -2,9 +2,8 @@
 
 # Nuxt Material + Express full Backend ,Frontend
 ### Demo
-
-https://vuetifyshop.herokuapp.com
-
+https://vuetifyshop.herokuapp.com(sr site now error.i remote all data then not connect to mongodb)
+![demo](https://i.imgur.com/0ta9ILP.png)
 ### Project Setup
 
 To use this boilerplate make sure to you have already installed [Vue CLI](https://www.npmjs.com/package/@vue/cli)
