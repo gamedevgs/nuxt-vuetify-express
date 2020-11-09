@@ -34,8 +34,10 @@ $ cd api
 $ node install.js
 ```
 ![node install.js](https://i.imgur.com/sFBkMAN.png)
-1/admin : localhost:3000/admin
-2/frontend: localhost:3000
+
+```1/admin : localhost:3000/admin```
+```2/frontend: localhost:3000```
+
 ### demo
 ### 1.login admin page
 ![login](https://i.imgur.com/xm4HTBE.png)
