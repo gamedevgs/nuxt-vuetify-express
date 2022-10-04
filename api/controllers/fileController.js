@@ -9,15 +9,11 @@ var month = a.getMonth();
 var date = a.getDate();
 var setRefix = date.toString() + parseInt(month + 1).toString() + year.toString();
 
-var dir = path.dirname(new URL(
-    import.meta.url).pathname);
-var dirUpload = dir.replace(/(\/api\/controllers)/gm, `/static`);
-var full_dir = dirUpload + process.env.FOLDER_UPLOAD + '/' + setRefix
+var full_dir = process.env.FOLDER_UPLOAD + '/' + setRefix
+console.log(full_dir)
 var storage = multer.diskStorage({
     destination: function(req, file, cb) {
-        console.log(req.files)
-        console.log(file)
-            // check if directory exists
+        // check if directory exists
         fs.mkdir(full_dir, { recursive: true }, (err) => { if (err) throw err; })
         cb(null, full_dir)
     },
@@ -30,13 +26,14 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage: storage }).any();
 module.exports.fileManager = function(req, res) {
-    const tree = dirTree(dirUpload);
+    const tree = dirTree(process.env.FOLDER_UPLOAD,{attributes:["size", "type", "extension"]});
+    console.log(tree)
     return res.json(tree)
 }
 module.exports.enterFolder = function(req, res) {
-    console.log(req.body.path)
+  
     if (req.body.path) {
-        const tree = dirTree(req.body.path);
+        const tree = dirTree(req.body.path,{attributes:["size", "type", "extension"]});
         return res.status(200).json({
             message: "success",
             data: tree
@@ -74,7 +71,7 @@ module.exports.uploadfile = function(req, res) {
     upload(req, res, function(err) {
         if (err) {
             return res.status(404).json({
-                message: 'Error file upload'
+                message: err
             });
         }
         return res.status(200).json({
